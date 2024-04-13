@@ -6,15 +6,16 @@ import uuid from 'react-uuid'
 
 function App() {
   const [notes,setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || [])
-  const [activeNote, setActiveNote] = useState(false)
+  const [activeNote, setActiveNote] = useState(null)
 
   useEffect(() => {
     localStorage.setItem('notes',JSON.stringify(notes))},
     [notes]);
 
     useEffect(() => {
+      if(notes.length>0)
       setActiveNote(notes[0].id) },
-      []);
+      [notes]);
 
   const onAddNote = () =>{
     console.log('新しくノートが追加されました')
