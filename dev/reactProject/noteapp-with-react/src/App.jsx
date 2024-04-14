@@ -49,6 +49,31 @@ function App() {
     setNotes(updatedNotesArray)
   }
 
+  //検索　
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value)
+    search(e.target.value)
+  }
+  const search = (value) => {
+    if(value === ''){
+      setNotes(notes)
+      return
+    }
+    const searchedNote = notes.filter(
+      (note) => Object.values(note).filter(
+        (item) => item !== undefined && item !== null && item.toUpperCase().indexOf(value.toUpperCase()) !== -1
+      ).length > 0
+    )
+    setNotes(searchedNote)
+  }
+
+  {
+    notes.map((note, index) => {
+      return note
+    })
+  }
+
+
   return <div className='App'>
     <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} activeNote={activeNote}
     setActiveNote={setActiveNote}/>

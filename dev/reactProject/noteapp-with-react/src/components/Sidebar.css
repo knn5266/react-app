@@ -55,3 +55,23 @@ button {
 .app-sidebar-note.active {
   background-color: #dcd4d4;
 }
+
+.app-sidebar-search {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.app-sidebar-search input {
+  margin: 0;
+}
+
+.app-sidebar-search button {
+  background: none;
+  border: none;
+  color: #08c;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  cursor: pointer;
+}

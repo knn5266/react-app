@@ -1,7 +1,7 @@
 import React from 'react'
 import './Sidebar.css'
 
-const Sidebar = ({onAddNote, notes, onDeleteNote,activeNote,setActiveNote}) => {
+const Sidebar = ({onAddNote, notes, onDeleteNote,activeNote,setActiveNote, handleInputChange}) => {
   
   const sortedNotes = notes.sort((a,b) => b.modDate - a.modDate)
   
@@ -10,6 +10,9 @@ const Sidebar = ({onAddNote, notes, onDeleteNote,activeNote,setActiveNote}) => {
       <div className='app-sidebar-header'>
         <h1>ノート</h1>
         <button onClick={onAddNote}>追加</button>
+      </div>
+      <div className='app-sidebar-search'>
+        <input type='search' id='search-note' placeholder='検索' onClick={handleInputChange} />
       </div>
       <div className='app-sidebar-notes'>
         {sortedNotes.map((note) => (
