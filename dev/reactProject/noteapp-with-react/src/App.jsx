@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useMemo } from 'react'
 import './App.css'
 import Main from './components/Main'
 import Sidebar from './components/Sidebar'
@@ -7,6 +7,7 @@ import uuid from 'react-uuid'
 function App() {
   const [notes,setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || [])
   const [activeNote, setActiveNote] = useState(null)
+  const [inputValue, setInputValue]  = useState()
 
   useEffect(() => {
     localStorage.setItem('notes',JSON.stringify(notes))},
@@ -61,22 +62,17 @@ function App() {
     }
     const searchedNote = notes.filter(
       (note) => Object.values(note).filter(
-        (item) => item !== undefined && item !== null && item.toUpperCase().indexOf(value.toUpperCase()) !== -1
+        (item) => item !== undefined && item !== null && item.toString().toUpperCase().indexOf(value.toUpperCase()) !== -1
       ).length > 0
     )
     setNotes(searchedNote)
   }
 
-  {
-    notes.map((note, index) => {
-      return note
-    })
-  }
 
 
   return <div className='App'>
     <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} activeNote={activeNote}
-    setActiveNote={setActiveNote}/>
+    setActiveNote={setActiveNote} handleInputChange={handleInputChange}/>
     <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote}/>
   </div>   
 }
