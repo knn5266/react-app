@@ -17,7 +17,7 @@ function App() {
       if(inputValue === ''){
         return notes
       }
-      notes.filter(
+       return notes.filter(
         (note) => note.title.includes(inputValue)
       )
     },[notes,inputValue])
