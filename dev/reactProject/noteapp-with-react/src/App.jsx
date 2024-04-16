@@ -7,16 +7,26 @@ import uuid from 'react-uuid'
 function App() {
   const [notes,setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || [])
   const [activeNote, setActiveNote] = useState(null)
-  const [inputValue, setInputValue]  = useState()
+  const [inputValue, setInputValue]  = useState('')
 
   useEffect(() => {
     localStorage.setItem('notes',JSON.stringify(notes))},
     [notes]);
 
+    const showNotes = useMemo(() =>{
+      if(inputValue === ''){
+        return notes
+      }
+      notes.filter(
+        (note) => note.title.includes(inputValue)
+      )
+    },[notes,inputValue])
+  
+
     useEffect(() => {
-      if(notes.length>0)
-      setActiveNote(notes[0].id) },
-      [notes]);
+      if(showNotes.length>0)
+      setActiveNote(showNotes[0].id)},
+      [showNotes]);
 
   const onAddNote = () =>{
     console.log('新しくノートが追加されました')
@@ -50,28 +60,13 @@ function App() {
     setNotes(updatedNotesArray)
   }
 
-  //検索　
+  //検索
   const handleInputChange = (e) => {
     setInputValue(e.target.value)
-    search(e.target.value)
   }
-  const search = (value) => {
-    if(value === ''){
-      setNotes(notes)
-      return
-    }
-    const searchedNote = notes.filter(
-      (note) => Object.values(note).filter(
-        (item) => item !== undefined && item !== null && item.toString().toUpperCase().indexOf(value.toUpperCase()) !== -1
-      ).length > 0
-    )
-    setNotes(searchedNote)
-  }
-
-
 
   return <div className='App'>
-    <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} activeNote={activeNote}
+    <Sidebar onAddNote={onAddNote} notes={showNotes} onDeleteNote={onDeleteNote} activeNote={activeNote}
     setActiveNote={setActiveNote} handleInputChange={handleInputChange}/>
     <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote}/>
   </div>   

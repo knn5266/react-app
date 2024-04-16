@@ -13,7 +13,6 @@ const Sidebar = ({onAddNote, notes, onDeleteNote,activeNote,setActiveNote, handl
       </div>
       <div className='app-sidebar-search'>
         <input type='text' id='search-note' placeholder='検索'  onChange={handleInputChange} value={inputValue}/>
-        {/* <button onClick={handleInputChange}>検索</button> */}
       </div>
       <div className='app-sidebar-notes'>
         {sortedNotes.map((note) => (
